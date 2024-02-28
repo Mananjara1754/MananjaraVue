@@ -1,0 +1,7 @@
+{
+  "name": "MananjaraVue",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
