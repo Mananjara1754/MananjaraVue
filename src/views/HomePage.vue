@@ -1,25 +1,21 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Inbox</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
+    <ion-content :fullscreen="true" id="main-content">
       <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
 
-      <ion-header collapse="condense">
+      <ion-header :translucent="true">
         <ion-toolbar>
-          <ion-title size="large">Inbox</ion-title>
+          <ion-title>Logo</ion-title>
+          <ion-buttons slot="end" class="menu">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
-
-      <ion-list>
-        <MessageListItem v-for="message in messages" :key="message.id" :message="message" />
-      </ion-list>
+      <div class="container">
+        <h1>Bienvenue</h1>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -35,11 +31,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/vue';
-import MessageListItem from '@/components/MessageListItem.vue';
-import { getMessages, Message } from '@/data/messages';
-import { ref } from 'vue';
 
-const messages = ref<Message[]>(getMessages());
 
 const refresh = (ev: CustomEvent) => {
   setTimeout(() => {
@@ -47,3 +39,5 @@ const refresh = (ev: CustomEvent) => {
   }, 3000);
 };
 </script>
+<style>
+</style>
