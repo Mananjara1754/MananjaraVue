@@ -9,8 +9,13 @@
       <ion-content>
         <ion-list lines="none" class="menu-items">
           <ion-item>
-            <router-link to="/home">
+            <router-link to="message/0">
               <ion-icon name="home-outline"></ion-icon> Accueil
+            </router-link>
+          </ion-item>
+          <ion-item>
+            <router-link to="/home">
+              <ion-icon name="home-outline"></ion-icon> home
             </router-link>
           </ion-item>
           <ion-item>

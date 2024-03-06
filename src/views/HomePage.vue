@@ -1,5 +1,6 @@
 <template>
   <ion-page>
+
     <ion-content :fullscreen="true" id="main-content">
       <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
         <ion-refresher-content></ion-refresher-content>
@@ -24,7 +25,6 @@
 import {
   IonContent,
   IonHeader,
-  IonList,
   IonPage,
   IonRefresher,
   IonRefresherContent,
@@ -40,4 +40,5 @@ const refresh = (ev: CustomEvent) => {
 };
 </script>
 <style>
+
 </style>
