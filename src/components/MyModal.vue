@@ -1,9 +1,9 @@
 <!-- MyModal.vue -->
 <template>
-  <ion-modal :is-open="showModal" @ionModalDidDismiss="dismissModal">
+  <ion-modal :is-open="showModal">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Ma Pop-up</ion-title>
+        <ion-title>Ma Pop-up <button @click="dismissModal" class="btn btn-danger"> Valider</button></ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">

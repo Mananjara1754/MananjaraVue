@@ -16,7 +16,7 @@
       <div class="container">
         <h1>Liste des Fruits</h1>
         <br>
-        <button class="btn btn-primary" @click="presentModal">Ajouter</button><br><br>
+        <button class="btn btn-primary">Ajouter</button><br><br>
         <div class="row">
           <table class="table">
           <tbody>
@@ -25,27 +25,24 @@
               <td></td>
               <td></td>
             </tr>
-            <tr v-for="fruit in fruits.data" :key="fruit.id_fruit">
+            <tr v-for="fruit in fruits" :key="fruit.id_fruit">
               <td>{{fruit.nom_fruit}}</td>
-              <td>Modifier</td>
-              <td>Supprimer</td>
+              <td><button class="btn btn-secondary" @click="modifierFruit(fruit)">Modifier</button></td>
+              <td><button class="btn btn-danger">Supprimer</button></td>
             </tr>
           </tbody>
         </table>
         </div>
       </div>
     </ion-content>
-    <my-modal ref="myModal"></my-modal>
   </ion-page>
 </template>
 
 <script>
 import axios from 'axios';
-import MyModal from '/src/components/MyModal.vue';
+import { getUrl} from '@/data/store';
 export default {
-  components: {
-    MyModal
-  },
+
   data() {
     return {
       fruits: [],
@@ -55,24 +52,16 @@ export default {
     await this.fetchFruits();
   },
   methods: {
-    presentModal() {
-      this.$refs.myModal.presentModal(); // Assurez-vous que la référence est correcte
-    },
     async fetchFruits() {
       try {
-        const response = await axios.get('http://localhost:5153/api/Fruit/testbdd');
-        this.fruits = response.data; // Suppose que la réponse est un tableau de fruits
+        const url = getUrl();
+        // console.log(url+'Fruit');
+        const response = await axios.get(url+'Fruit');
+        this.fruits = response;
       } catch (error) {
         console.error('Erreur lors de la récupération des fruits:', error);
       }
-    },
-    afficherFormulaire() {
-          const modal = document.createElement('ion-modal');
-          modal.component = 'app-ajout-fruit'; // Remplacez par le nom de votre composant de formulaire
-          document.body.appendChild(modal);
-          return modal.present();
-        },
+    }
   },
-
 };
 </script>
