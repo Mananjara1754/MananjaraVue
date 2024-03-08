@@ -44,7 +44,9 @@ import { IonApp, IonRouterOutlet } from '@ionic/vue';
 *{
   color: black;
   font-family: 'Poppins';
-
+}
+label{
+  font-size: small;
 }
 
 .menu-items{
