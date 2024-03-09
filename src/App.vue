@@ -8,19 +8,14 @@
       </ion-header>
       <ion-content>
         <ion-list lines="none" class="menu-items">
-          <ion-item>
-            <router-link to="message/0">
-              <ion-icon name="home-outline"></ion-icon> Accueil
+          <ion-item class="nav-item">
+            <router-link to="/home" class="nav-link active">
+              <i class="bi bi-house" id="menu-id"></i>Accueil
             </router-link>
           </ion-item>
-          <ion-item>
-            <router-link to="/home">
-              <ion-icon name="home-outline"></ion-icon> home
-            </router-link>
-          </ion-item>
-          <ion-item>
-            <router-link to="/fruit">
-              <ion-icon name="home-outline"></ion-icon> CRUD Fruit 
+          <ion-item class="nav-item">
+            <router-link to="/Fruit" class="nav-link active">
+              <i class="bi bi-card-text" id="menu-id"></i>Crud fruit
             </router-link>
           </ion-item>
         </ion-list>
@@ -32,11 +27,18 @@
 </template>
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-
+import {
+  IonContent,
+  IonHeader,
+  IonList,
+  IonMenu,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/vue';
 </script>
 <style>
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 @font-face {
     font-family: 'Poppins';
     src: url('../assets/font/Poppins-Regular.ttf');
@@ -48,7 +50,10 @@ import { IonApp, IonRouterOutlet } from '@ionic/vue';
 label{
   font-size: small;
 }
-
+#menu-id{
+  margin-right: 16px;
+  margin-left: 10px;
+}
 .menu-items{
     margin: 0px;
     background-color: transparent;
