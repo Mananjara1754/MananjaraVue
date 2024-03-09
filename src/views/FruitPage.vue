@@ -30,6 +30,10 @@
                   <input type="text" class="form-control" v-model="selectedFruit.nomFruit">
                   <label>Couleur</label>
                   <input type="text" class="form-control" v-model="selectedFruit.couleur" >
+                  <label for="fruitColor">Choix du categorie: </label>
+                  <select v-model="selectedFruit.idCategorie" class="form-control" id="">
+                    <option  v-for="categorie in categories":key="categorie.idCategorie" :value="categorie.idCategorie">{{ categorie.nomCategorie }}</option>
+                  </select>
                 </div>
               </ion-content>
             </ion-modal>
@@ -48,6 +52,10 @@
 
             <label for="fruitColor">Couleur du Fruit:</label>
             <input class="form-control" type="text" id="fruitColor" v-model="couleur_fruit" />
+            <label for="fruitColor">Choix du categorie: </label>
+            <select v-model="id_categorie" class="form-control" id="">
+              <option  v-for="categorie in categories":key="categorie.idCategorie" :value="categorie.idCategorie">{{ categorie.nomCategorie }}</option>
+            </select>
             <br>
             <button class="btn btn-danger" @click="dismissAdd()" id="annuler">Annuler</button> 
             <button type="submit" class="btn btn-primary" id="add" style="margin-left: 10px;">Ajouter</button>
@@ -97,13 +105,14 @@ import {
 } from '@ionic/vue';
 //Parametre de dev
 const fruits = ref([]);
+const categories = ref([]);
 const isLoading = ref(true);
 const ajout = ref(false);
 
 //Parametre du class
 const nom_fruit = ref();
 const couleur_fruit = ref();
-
+const id_categorie = ref();
 //Traitement du popup
 const selectedFruit = ref(null);
 const modal = ref();
@@ -139,6 +148,19 @@ const fetchFruits = async () => {
         console.error('Erreur lors de la récupération des fruits:', error);
       }
 };
+const fetchCategorie = async () => {
+  try {
+        const url = getUrl();
+        const response = await axios.get(url + 'Categorie');
+        categories.value = response.data; // Assuming the array of categories is in the 'data' property
+        isLoading.value = false;
+        console.log(response);      
+      } catch (error) {
+        isLoading.value = false;
+        console.error('Erreur lors de la récupération des categories:', error);
+      }
+};
+
 const deleteFruit = async (idFruit:any) => {
   try {
     const url = getUrl();
@@ -155,7 +177,8 @@ const modifFruit = async () =>{
         const formData = {
           idFruit : selectedFruit.value.idFruit,
           nomFruit: selectedFruit.value.nomFruit,
-          couleur: selectedFruit.value.couleur
+          couleur: selectedFruit.value.couleur,
+          idCategorie : selectedFruit.value.idCategorie
         };
         const url = getUrl();
         const response = await axios.put(url+'Fruit', formData);
@@ -172,6 +195,7 @@ const insertFruit = async () =>{
         const formData = {
           nomFruit: nom_fruit.value,
           couleur: couleur_fruit.value,
+          idCategorie: id_categorie.value
         };
         // Envoyer la requête POST à votre API
         const url = getUrl();
@@ -192,6 +216,7 @@ const submitForm = () => {
 
 onMounted(() => {
   fetchFruits();
+  fetchCategorie();
 });
 
 const refresh = (ev: CustomEvent) => {
