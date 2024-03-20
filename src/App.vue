@@ -9,6 +9,11 @@
       <ion-content>
         <ion-list lines="none" class="menu-items">
           <ion-item class="nav-item">
+            <button to="/home" class="nav-link active">
+              <i class="bi bi-person-circle" id="menu-id"></i> {{ email }} 
+            </button>
+          </ion-item>
+          <ion-item class="nav-item">
             <router-link to="/home" class="nav-link active">
               <i class="bi bi-house" id="menu-id"></i>Accueil
             </router-link>
@@ -17,6 +22,11 @@
             <router-link to="/Fruit" class="nav-link active">
               <i class="bi bi-card-text" id="menu-id"></i>Crud fruit
             </router-link>
+          </ion-item>
+          <ion-item class="nav-item">
+            <button @click="deconnexion()" class="nav-link active">
+              <i class="bi bi-box-arrow-left" id="menu-id"></i>Deconnexion
+            </button>
           </ion-item>
         </ion-list>
       </ion-content>
@@ -35,6 +45,12 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/vue';
+
+const email = localStorage.getItem("email");
+const deconnexion =()=>{
+  localStorage.clear();
+  window.window.location.href = '/login';
+}
 </script>
 <style>
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";

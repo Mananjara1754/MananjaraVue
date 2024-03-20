@@ -60,41 +60,26 @@ import { getUrl } from '@/data/store';
 import {
   IonContent,
   IonHeader,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonTitle,
-  IonToolbar,
-  IonButtons,
-  IonButton,
-  IonModal,
+  IonPage
 } from '@ionic/vue';
 //Parametre de dev
-const fruits = ref([]);
-const categories = ref([]);
-const isLoading = ref(true);
-const ajout = ref(false);
-
 const email = ref();
 const mdp = ref();
 
-
-const login = async () =>{
+const login = async () => {
   try {
-        // Créer un objet avec les données du formulaire
-        const formData = {
-          email: email.value,
-          mdp: mdp.value,
-        };
-        alert(email.value+"reo"+mdp.value);
-        // Envoyer la requête POST à votre API
-        const url = getUrl();
-        const response = await axios.post(url+'Fruit', formData);
-        console.log('Réponse de l\'API:', response.data);
- 
-      } catch (error) {
-        console.error('Erreur lors de l\'envoi du formulaire:', error);
-      }
+    // Créer un objet avec les données du formulaire
+    const formData = {
+      email: email.value,
+      mdp: mdp.value,
+    };
+    // Ajouter les données dans le localStorage normalement info de l'user
+    localStorage.setItem('email', formData.email);
+    localStorage.setItem('mdp', formData.mdp);
+    window.location.href = '/home';
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi du formulaire:', error);
+  }
 }
 
 const submitForm = () => {
@@ -119,8 +104,6 @@ const submitForm = () => {
     --primary-dark: #4a00e0;
     --primary-light: #5DA8FF;
     --secondary: #1D1D1D;
-    --social-background: #E9E9E9;
-    --social-background-hover: #dddddd;
     --text: #1F2346;
     --white: #FFFFFF;
     --violet: #8e2de2;
@@ -146,42 +129,6 @@ body {
             var(--primary-dark));
     background: linear-gradient(to right, var(--violet),
             var(--primary-dark));
-}
-
-.socials-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.socials-row img {
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-.socials-row>a {
-    padding: 0.5rem;
-    border-radius: 10rem;
-    width: 100%;
-    min-height: 3rem;
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    font-size: 1.1rem;
-    color: var(--text);
-    padding: 0.5rem;
-    background: var(
-        --social-background
-    );
-    font-weight: 700;
-}
-
-.socials-row>a:hover {
-    background: var(
-        --social-background-hover
-    );
 }
 
 .login-welcome-row {
