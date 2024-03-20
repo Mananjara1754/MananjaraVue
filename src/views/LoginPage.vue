@@ -1,0 +1,353 @@
+<template>
+  <ion-page>
+    <ion-content :fullscreen="true" id="content-log">
+      
+<div class="container" id="box">
+  <form @submit.prevent="submitForm" class="my-form">
+        <div class="login-welcome-row">
+            <a href="#" title="Logo">
+                <img src="../assets/img/logo.svg" alt="Logo" class="logo">
+            </a>
+            <h3>Login Page</h3>
+            <p style="font-size: smaller;">Bienvenue sur notre site entrer votre Email et mot de passe</p>
+        </div>
+        <div class="input__wrapper">
+            <input type="email" id="email" name="email" class="input__field" placeholder="Your Email" v-model="email">
+            <label for="email" class="input__label">Email:</label>
+            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path>
+            </svg>
+        </div>
+        <div class="input__wrapper">
+            <input id="password" type="password" class="input__field" placeholder="Your Password" v-model="mdp">
+            <label for="password" class="input__label">
+                Mot de passe
+            </label>
+            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"></path>
+                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
+                <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
+            </svg>
+        </div>
+        <button type="submit" class="my-form__button">
+            Login
+        </button>
+      
+        <div class="my-form__actions" style="font-size: smaller;">
+            <div class="my-form__row">
+                <span>Don't have an account?</span>
+                <a href="#" title="Create Account">
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+    </ion-content>
+  </ion-page>
+</template>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import { getUrl } from '@/data/store';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  IonTitle,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonModal,
+} from '@ionic/vue';
+//Parametre de dev
+const fruits = ref([]);
+const categories = ref([]);
+const isLoading = ref(true);
+const ajout = ref(false);
+
+const email = ref();
+const mdp = ref();
+
+
+const login = async () =>{
+  try {
+        // Créer un objet avec les données du formulaire
+        const formData = {
+          email: email.value,
+          mdp: mdp.value,
+        };
+        alert(email.value+"reo"+mdp.value);
+        // Envoyer la requête POST à votre API
+        const url = getUrl();
+        const response = await axios.post(url+'Fruit', formData);
+        console.log('Réponse de l\'API:', response.data);
+ 
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi du formulaire:', error);
+      }
+}
+
+const submitForm = () => {
+    login();
+};
+
+</script>
+<style>
+#content-log{
+  --background: none;
+    background-color: #08a778;
+    position: relative;
+}
+#box{
+  top: 37px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+:root {
+    --primary: #605DFF;
+    --primary-dark: #4a00e0;
+    --primary-light: #5DA8FF;
+    --secondary: #1D1D1D;
+    --social-background: #E9E9E9;
+    --social-background-hover: #dddddd;
+    --text: #1F2346;
+    --white: #FFFFFF;
+    --violet: #8e2de2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'Work Sans', sans-serif;
+    height: 100vh;
+    padding: 1rem;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: var(--violet);
+    background: -webkit-linear-gradient(to right, var(--violet),
+            var(--primary-dark));
+    background: linear-gradient(to right, var(--violet),
+            var(--primary-dark));
+}
+
+.socials-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.socials-row img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.socials-row>a {
+    padding: 0.5rem;
+    border-radius: 10rem;
+    width: 100%;
+    min-height: 3rem;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: var(--text);
+    padding: 0.5rem;
+    background: var(
+        --social-background
+    );
+    font-weight: 700;
+}
+
+.socials-row>a:hover {
+    background: var(
+        --social-background-hover
+    );
+}
+
+.login-welcome-row {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.welcome-message {
+    max-width: 24rem;
+}
+
+.logo {
+    height: 4rem;
+    margin: 0 auto;
+}
+
+.logo {
+    color: var(--primary);
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+    gap: 1rem;
+    background: var(--white);
+    width: 100%;
+    max-width: 32rem;
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    height: fit-content;
+}
+
+.my-form__button {
+    background: var(--primary);
+    color: white;
+    white-space: nowrap;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    line-height: 3.125rem;
+    outline: none;
+    font-size: medium;
+    letter-spacing: .025rem;
+    text-decoration: none;
+    cursor: pointer;
+    /* font-weight: 800; */
+    min-height: 3.125rem;
+    width: 100%;
+    border-radius: 10rem;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+.my-form__button:hover {
+    background: var(--primary-dark);
+}
+
+/*? input wrapper */
+.input__wrapper {
+    position: relative;
+    padding: 0.9375rem 0 0;
+    margin-bottom: 0.5rem;
+}
+
+.input__field {
+
+    color: var(--text);
+    padding: 0.375rem 0;
+    padding-right: 2rem;
+    padding-bottom: 0.5rem;
+    line-height: 2rem;
+    height: 2rem;
+    outline: 0;
+    border: 0;
+    width: 100%;
+    vertical-align: middle;
+    padding-bottom: 0.7rem;
+    border-bottom: 3px solid var(--secondary);
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.input__field::placeholder {
+    color: transparent;
+}
+
+
+.input__label {
+    user-select: none;
+    font-size: small;
+}
+
+.input__field:placeholder-shown~.input__label {
+    cursor: text;
+    color: var(--text);
+    top: 0.8rem;
+    font-size: smaller;
+}
+
+.input__label,
+.input__field:focus~.input__label {
+    position: absolute;
+    top: -0.8rem;
+    display: block;
+    font-size: smaller;
+    color: var(--text);
+    transition: 0.3s;
+}
+
+.input__field:focus~.input__label {
+    color: var(--primary);
+}
+
+.input__field:focus {
+    border-bottom: 3px solid var(--primary);
+}
+
+.input__field:focus~svg {
+    stroke: var(--primary);
+}
+
+.input__icon {
+  position: absolute;
+    right: -0.875rem;
+    bottom: -0.6875rem;
+    width: 1.75rem;
+    height: 2.25rem;
+    padding: 0.125rem;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.input__icon:hover {
+    border-radius: 50%;
+}
+
+/* my form actions */
+
+.my-form__actions {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    color: var(--secondary);
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.my-form__actions a {
+    color: var(--secondary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.my-form__actions a:hover {
+    text-decoration: underline;
+}
+
+.my-form__row {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+</style>

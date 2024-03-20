@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <clipPath id="clip-Web_1920_1">
+      <rect width="40" height="40"/>
+    </clipPath>
+  </defs>
+  <g id="Web_1920_1" data-name="Web 1920 – 1" clip-path="url(#clip-Web_1920_1)">
+    <rect width="40" height="40" fill="#fff"/>
+    <g id="Groupe_1" data-name="Groupe 1" transform="translate(3 0)">
+      <path id="Tracé_1" data-name="Tracé 1" d="M.021,138.77l14.627,8.71v-5.916L.021,132.854Z" transform="translate(-0.017 -107.481)" fill="#163300"/>
+      <path id="Tracé_2" data-name="Tracé 2" d="M76.608,141.565v5.916l14.627-8.711v-5.916Z" transform="translate(-61.977 -107.481)" fill="#9fe870"/>
+      <path id="Tracé_3" data-name="Tracé 3" d="M0,51.994V57.91L14.627,49.2V43.283Z" transform="translate(0 -35.017)" fill="#657e92"/>
+      <path id="Tracé_4" data-name="Tracé 4" d="M91.215,51.994l-14.627-8.71V49.2l14.627,8.71Z" transform="translate(-61.961 -35.017)" fill="#a3b2be"/>
+      <path id="Tracé_5" data-name="Tracé 5" d="M.021,94.883l14.627,8.71V97.677L.021,88.966Z" transform="translate(-0.017 -71.975)" fill="#163300"/>
+      <path id="Tracé_6" data-name="Tracé 6" d="M91.235,94.883l-14.627,8.71V97.677l14.627-8.71Z" transform="translate(-61.977 -71.975)" fill="#9fe870"/>
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="2.442" height="2.442" transform="translate(19.928 11.192)" fill="#9fe870"/>
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="3.826" height="3.826" transform="translate(24.025 8.535)" fill="#657e92"/>
+      <rect id="Rectangle_3" data-name="Rectangle 3" width="3.826" height="3.827" transform="translate(29.29 6.719)" fill="#163300"/>
+      <rect id="Rectangle_4" data-name="Rectangle 4" width="5.56" height="5.56" transform="translate(25.068 0)" fill="#9fe870"/>
+      <rect id="Rectangle_5" data-name="Rectangle 5" width="4.693" height="4.693" transform="translate(18.803 2.376)" fill="#163300"/>
+    </g>
+  </g>
+</svg>
