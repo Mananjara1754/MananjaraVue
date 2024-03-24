@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import HomePage from '../views/HomePage.vue';
 import FruitPage from '../views/FruitPage.vue'
 import LoginPage from '../views/LoginPage.vue'
+import InscriptionPage from '@/views/InscriptionPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,6 +23,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     component:LoginPage
+  },
+  {
+    path: '/inscription',
+    component:InscriptionPage
   },
   {
     path: '/message/:id',

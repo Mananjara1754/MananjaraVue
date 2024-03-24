@@ -8,31 +8,32 @@
             <a href="#" title="Logo">
                 <img src="../assets/img/logo.svg" alt="Logo" class="logo">
             </a>
-            <h3>Login</h3>
-            <p style="font-size: smaller;">Bienvenue sur notre site entrer votre Email et mot de passe</p>
+            <h3>Inscription</h3>
+            <p style="font-size: smaller;">Veuillez bien remplir le formulaire si dessous</p>
         </div>
         <div class="input__wrapper">
-            <input type="text" id="email" name="email" class="input__field" placeholder="Your Email" v-model="email">
+            <input type="text" id="email" name="email" class="input__field" placeholder="Your Email" v-model="nom">
+            <label for="email" class="input__label">Nom</label>
+        </div>
+        <div class="input__wrapper">
+            <input type="text" id="email" name="email" class="input__field" placeholder="Your Email" v-model="prenom">
+            <label for="email" class="input__label">Prenom</label>
+        </div>
+        <div class="input__wrapper">
+            <input type="text" id="email" name="email" class="input__field" placeholder="Your Email" v-model="mail">
             <label for="email" class="input__label">Email:</label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-                <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path>
-            </svg>
         </div>
         <div class="input__wrapper">
             <input id="password" type="password" class="input__field" placeholder="Your Password" v-model="mdp">
             <label for="password" class="input__label">
                 Mot de passe
             </label>
-            <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"></path>
-                <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0"></path>
-                <path d="M8 11v-4a4 4 0 1 1 8 0v4"></path>
-            </svg>
+        </div>
+        <div class="input__wrapper">
+            <input id="password" type="password" class="input__field" placeholder="Your Password" v-model="confMdp">
+            <label for="password" class="input__label">
+                Confirmation du mot de passe
+            </label>
         </div>
         <button type="submit" class="my-form__button">
             Login
@@ -40,10 +41,7 @@
       
         <div class="my-form__actions" style="font-size: smaller;">
             <div class="my-form__row">
-                <span>Don't have an account?</span>
-                <router-link to="/inscription" title="Create Account">
-                    Sign Up
-                </router-link>
+                
             </div>
         </div>
     </form>
@@ -62,19 +60,25 @@ import {
   IonPage
 } from '@ionic/vue';
 //Parametre de dev
+const nom = ref();
+const prenom = ref();
 const email = ref();
 const mdp = ref();
+const confMdp = ref();
 
-const login = async () => {
+const inscription = async () => {
   try {
     const formData = {
-      mail: email.value,
-      mdp: mdp.value,
+        nom:nom.value,
+        prenom:prenom.value,
+        mail: email.value,
+        mdp: mdp.value
     };
+    if(confMdp.value !== mdp.value){
+        throw new Error("Erreur lors de la confirmation du mot de passe");
+    }
     const url = getUrl();
-    
-    
-    const response = await axios.post(url+'Utilisateur/authenticate', formData);
+    const response = await axios.post(url+'Utilisateur', formData);
     console.log('Réponse de l\'API:',response.data );
     localStorage.setItem('all', response.data);
     localStorage.setItem('nom', response.data.nom);
@@ -82,12 +86,12 @@ const login = async () => {
     window.location.href = '/home';
   } catch (error) {
     console.error('Erreur lors de l\'envoi du formulaire:', error);
-    alert("Mot de passe ou Email incorrecte");
+    alert(error.message);
   }
 }
 
 const submitForm = () => {
-    login();
+    inscription();
 };
 
 </script>
@@ -214,7 +218,7 @@ body {
     width: 100%;
     vertical-align: middle;
     padding-bottom: 0.7rem;
-    border-bottom: 3px solid var(--secondary);
+    border-bottom: 2px solid rgb(170, 170, 170);
     background: transparent;
     transition: border-color 0.2s;
 }
