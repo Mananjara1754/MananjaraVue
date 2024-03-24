@@ -12,7 +12,7 @@
             <p style="font-size: smaller;">Bienvenue sur notre site entrer votre Email et mot de passe</p>
         </div>
         <div class="input__wrapper">
-            <input type="email" id="email" name="email" class="input__field" placeholder="Your Email" v-model="email">
+            <input type="text" id="email" name="email" class="input__field" placeholder="Your Email" v-model="email">
             <label for="email" class="input__label">Email:</label>
             <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -54,12 +54,12 @@
   </ion-page>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref} from 'vue';
 import axios from 'axios';
 import { getUrl } from '@/data/store';
 import {
+    IonAlert,
   IonContent,
-  IonHeader,
   IonPage
 } from '@ionic/vue';
 //Parametre de dev
@@ -68,17 +68,22 @@ const mdp = ref();
 
 const login = async () => {
   try {
-    // Créer un objet avec les données du formulaire
     const formData = {
-      email: email.value,
+      mail: email.value,
       mdp: mdp.value,
     };
-    // Ajouter les données dans le localStorage normalement info de l'user
-    localStorage.setItem('email', formData.email);
-    localStorage.setItem('mdp', formData.mdp);
+    const url = getUrl();
+    
+    
+    const response = await axios.post(url+'Utilisateur/authenticate', formData);
+    console.log('Réponse de l\'API:',response.data );
+    localStorage.setItem('all', response.data);
+    localStorage.setItem('nom', response.data.nom);
+    localStorage.setItem('prenom', response.data.prenom);
     window.location.href = '/home';
   } catch (error) {
     console.error('Erreur lors de l\'envoi du formulaire:', error);
+    alert("Mot de passe ou Email incorrecte");
   }
 }
 

@@ -10,7 +10,7 @@
         <ion-list lines="none" class="menu-items">
           <ion-item class="nav-item">
             <button to="/home" class="nav-link active">
-              <i class="bi bi-person-circle" id="menu-id"></i> {{ email }} 
+              <i class="bi bi-person-circle" id="menu-id"></i> {{ nom }} {{ prenom }} 
             </button>
           </ion-item>
           <ion-item class="nav-item">
@@ -36,6 +36,7 @@
   </ion-app>
 </template>
 <script setup lang="ts">
+import { ref} from 'vue';
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import {
   IonContent,
@@ -45,8 +46,10 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/vue';
+const info = localStorage.getItem('info');
+const nom = localStorage.getItem("nom");
+const prenom = localStorage.getItem("prenom");
 
-const email = localStorage.getItem("email");
 const deconnexion =()=>{
   localStorage.clear();
   window.window.location.href = '/login';
