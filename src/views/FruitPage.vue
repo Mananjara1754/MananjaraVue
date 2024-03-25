@@ -86,7 +86,7 @@
         <div class="pagination">
        <!-- Bouton Précédent -->
         <ion-button @click="previousPage" :disabled="currentPage === 1">
-            Précédent
+            <i class="bi bi-chevron-left"></i>
         </ion-button>
           
           <!-- Boucle pour générer les boutons numérotés -->
@@ -98,7 +98,7 @@
           
           <!-- Bouton Suivant -->
           <ion-button @click="nextPage" :disabled="currentPage === totalPages">
-            Suivant
+            <i class="bi bi-chevron-right"></i>
           </ion-button>
         </div>
             
