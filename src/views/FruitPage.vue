@@ -83,12 +83,31 @@
             </tbody>
           </table>
         </div>
+        <div class="pagination">
+       <!-- Bouton Précédent -->
+        <ion-button @click="previousPage" :disabled="currentPage === 1">
+            Précédent
+        </ion-button>
+          
+          <!-- Boucle pour générer les boutons numérotés -->
+          <ion-row class="ion-justify-content-center">
+            <ion-button v-for="pageNumber in visiblePageNumbers" :key="pageNumber" @click="goToPage(pageNumber)" :class="{ 'button-dotted': pageNumber !== currentPage }">
+              {{ pageNumber }}
+            </ion-button>
+          </ion-row>
+          
+          <!-- Bouton Suivant -->
+          <ion-button @click="nextPage" :disabled="currentPage === totalPages">
+            Suivant
+          </ion-button>
+        </div>
+            
       </div>
     </ion-content>
   </ion-page>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted,computed } from 'vue';
 import axios from 'axios';
 import { getUrl } from '@/data/store';
 import {
@@ -103,6 +122,29 @@ import {
   IonButton,
   IonModal,
 } from '@ionic/vue';
+
+//param de pagination :
+const currentPage = ref(1);
+const totalPages = ref(10);
+    const goToPage = (pageNumber:any)=> {
+          currentPage.value = pageNumber;
+    }
+
+    const previousPage = () => {
+      if (currentPage.value > 1) {
+        currentPage.value--;
+      }
+    }
+   const nextPage = () => {
+      if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+      }
+    }
+    const visiblePageNumbers = computed(() => {
+  const firstPage = Math.max(1, currentPage.value - 2);
+  const lastPage = Math.min(totalPages.value, firstPage + 4);
+  return Array.from({ length: lastPage - firstPage + 1 }, (_, i) => firstPage + i);
+});
 //Parametre de dev
 const fruits = ref([]);
 const categories = ref([]);
@@ -117,6 +159,12 @@ const id_categorie = ref();
 const selectedFruit = ref(null);
 const modal = ref();
 const cancel = () => modal.value.$el.dismiss(null, 'cancel');
+
+//............
+
+
+///...........
+
 
 const confirm = () => {
  modifFruit();
@@ -226,6 +274,10 @@ const refresh = (ev: CustomEvent) => {
 };
 </script>
 <style>
+.pagination{
+  display: flex;
+    justify-content: space-between;
+}
 .rounded-circle {
   width: 40px;
   height: 40px;
